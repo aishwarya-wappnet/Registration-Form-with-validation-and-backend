@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
 import { signUpSchema } from '../schemas';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 const initialValues = {
     name: "",
@@ -12,6 +14,7 @@ const initialValues = {
   }
 
 const RegForm = () => {
+  const navigate = useNavigate()
   const [showPassword, setshowPassword] = useState(false);
   const [showcPassword, setshowcPassword] = useState(false);
 
@@ -21,22 +24,25 @@ const RegForm = () => {
         validationSchema: signUpSchema,
         onSubmit: async (values, action) => {
           try {
-            const response = await fetch('http://localhost:9000/reg', {
+            const response = await fetch('http://localhost:9000/api/register', {
               method: 'POST',
               headers: {
-                'content-type': 'application/json',
+                'content-type': 'application/json', // we need to specify this because there are a bunch of content-types like you can send them as binary data, URL encoded but the simplest is JSON 
               },
               body: JSON.stringify(values),
             });
             const data = await response.json();
-            console.log("Data", data);
+            console.log("Data", response);
+
+            if(response.status ===  201){
+              navigate('/login')
+            }
           } catch (error) {
             console.log(error);
           }
           console.log(values);
           action.resetForm();
           console.log(action)
-
         }
       })
       
@@ -90,7 +96,8 @@ const RegForm = () => {
      <input type="button" value="show" onClick={() => setshowcPassword(!showcPassword)}/>
      </div>
      <br></br>
-    <input style={{ backgroundColor:"blueviolet", padding:"10px", borderRadius:"5px" }} type="submit" />
+    <input style={{ backgroundColor:"blueviolet", padding:"10px", borderRadius:"5px" }} type="submit"/>
+    <button><Link to="/login">Login</Link></button>
     </form>
     </div>
   )

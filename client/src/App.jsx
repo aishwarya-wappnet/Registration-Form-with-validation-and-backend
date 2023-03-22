@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'
-import RegForm from './components/RegForm';
+import  Routess  from './components/Routes';
 
 function App() {
-  // useEffect(() => {
-  //   fetch('http://localhost:9000/aliens')
-  //           .then(response => response.json())
-  //           .then(data => setAliens(data))
-  //           .catch(error => console.log(error));
-  // }, []);
-
   return (
       <>
-      {/* <h2>Aliens</h2>
+      <Routess />
+      </>
+  )
+}
+
+export default App
+
+{/* <h2>Aliens</h2>
       <ul>
         {aliens.map(alien => (
           <li key={alien.id}>
@@ -20,9 +20,10 @@ function App() {
           </li>
         ))}
       </ul> */}
-      <RegForm/>
-      </>
-  )
-}
 
-export default App
+       // useEffect(() => {
+  //   fetch('http://localhost:9000/aliens')
+  //           .then(response => response.json())
+  //           .then(data => setAliens(data))
+  //           .catch(error => console.log(error));
+  // }, []);
